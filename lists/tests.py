@@ -13,12 +13,12 @@ class HomePageTest(TestCase):
 
     def test_home_page_returns_correct_html(self):
         '''Test home page return write html'''
-        request = HttpRequest()
-        response = home_page(request)
+        response = self.client.get('/')
+
         html = response.content
+
         self.assertTrue(html.startswith(b'<html>'))
         self.assertIn(b'<title>To-Do lists</title>', html)
         self.assertTrue(html.endswith(b'</html>'))
 
-
-
+        self.assertTemplateUsed(response, "home.html")
