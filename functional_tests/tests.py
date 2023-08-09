@@ -2,9 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
-import unittest
 
-class NewVisitorTest(unittest.TestCase):
+from django.test import LiveServerTestCase
+
+class NewVisitorTest(LiveServerTestCase):
     '''New visitor test'''
 
     def setUp(self):
@@ -22,7 +23,7 @@ class NewVisitorTest(unittest.TestCase):
             row_text, [ row.text for row in rows ]),
 
     def test_can_start_a_list_and_retrive_it_later(self):
-        self.browser.get("http://0.0.0.0:8008")
+        self.browser.get(self.live_server_url)
     
         self.assertIn('To-Do', self.browser.title)
 
@@ -48,7 +49,3 @@ class NewVisitorTest(unittest.TestCase):
 
         
         self.fail("End test!")
-
-
-if __name__ == "__main__":
-    unittest.main(warnings="ignore")
